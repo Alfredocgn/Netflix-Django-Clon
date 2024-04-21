@@ -1,0 +1,7 @@
+.env
+*.db
+*.pyc
+/venv/
+/virtualenv/
+/pip/
+/pipenv/
