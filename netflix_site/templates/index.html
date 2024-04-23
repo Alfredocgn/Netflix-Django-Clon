@@ -7,10 +7,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Netflix Clone</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/style.css' %}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   
+
 </head>
 
 <body class="text-white" style="background-color: #141414;">
@@ -44,12 +44,12 @@
                 <button class="bg-red-600 text-white p-2 rounded hover:bg-red-500">Search</button>
             </form>
             <div class="flex flex-row ">
-                <a href="#" class="block p-2">Welcome</a>
+                <a href="#" class="block p-2">Welcome {{user.username}}</a>
                 <a href="/logout" class="block p-2">Logout</a>
             </div>
         </div>
     </header>
-    <section class="relative py-20 px-10" style="background-image: url('{{featured_movie.image_cover.url}}'); background-size: cover; background-position: center;">
+    <section class=" py-20 px-10" style="background-image: url('{{featured_movie.image_cover.url}}'); background-size: cover; background-position: center;">
         <div>
             <h1 style="color: black;" class="text-5xl mb-5">{{featured_movie.title}}</h1>
             <p style="color: black;" class="mb-5">{{featured_movie.description}}</p>
@@ -93,7 +93,7 @@
             </div>
             <img width="1000" height="100" src="https://bloximages.newyork1.vip.townnews.com/newsrecord.org/content/tncms/assets/v3/editorial/8/1e/81ea500c-45ac-11ee-a11e-a7402910a7e7/64ecaae69243a.image.jpg" alt="Movie Image" class=" mb-5">
             <div class="flex justify-between mb-5">
-                <span>Year: 2023</span>
+                <span >Year: 2023</span>
                 <span>Length: 2h 15min</span>
             </div>
             <p class="mb-5">Detailed information about the movie.</p>
@@ -152,6 +152,31 @@
             if (event.target === document.getElementById('movieModal')) {
                 hideModal();
             }
+        }
+
+        function addItemToList() {
+            const modal = document.getElementById('movieModal')
+            var movieID = modal.querySelector('.modal-content a').href;
+
+            $.ajax({
+                url: "{% url 'add-to-list' %}",
+                type: "POST",
+                data: {
+                    movie_id: movieID,
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function(data) {
+                    $('#addToListButton').text(data.message);
+
+                    $('#addToListButton').prop('disabled', true);
+
+                    console.log("Item added to list!");
+                },
+                error: function(xhr, errmsg, err) {
+                    
+                    console.error("Error adding item to list: " + errmsg);
+                }
+            });
         }
 
 
