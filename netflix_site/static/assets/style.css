@@ -13,8 +13,8 @@
 
 .modal-content {
   background: #000;
-  margin: 5% auto;
-  width: 70%;
+  margin: auto;
+  width: 50%;
   height: 80%;
   overflow-y: auto;
   padding: 20px;

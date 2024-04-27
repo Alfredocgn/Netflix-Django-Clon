@@ -45,8 +45,8 @@
                 <input type="search" name="search_term" placeholder="Search" class="bg-gray-700 p-2 rounded">
                 <button class="bg-red-600 text-white p-2 rounded hover:bg-red-500">Search</button>
             </form>
-            <div class="relative">
-                <a href="#" class="block p-2">Welcome, {{user.username}}</a>
+            <div class="flex flex-row">
+                <a href="#" class="block p-2">Welcome, {{user.username|capfirst}}</a>
                 <a href="/logout" class="block p-2">Logout</a>
             </div>
         </div>
